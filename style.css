@@ -197,6 +197,68 @@ section { padding: 100px 0; }
   background: var(--mint);
 }
 
+/* ---- SALT SHOWCASE ---- */
+.salt-showcase { grid-column: 1 / -1; }
+.salt-showcase:hover { transform: none; }
+.salt-types-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin: 24px 0 0;
+}
+.salt-type-card {
+  background: var(--light-bg); border-radius: var(--radius-sm);
+  padding: 20px; border: 1px solid var(--grey-200);
+}
+.salt-type-card.xinlabi {
+  border-color: var(--teal); background: rgba(14, 124, 123, 0.04);
+}
+.salt-type-card h4 {
+  font-size: 16px; color: var(--navy); margin-bottom: 6px;
+}
+.salt-type-card p {
+  font-size: 13px; color: var(--grey-600); margin-bottom: 12px; line-height: 1.5;
+}
+.salt-type-card .product-specs {
+  margin-bottom: 0; padding: 12px 0 0; border-top: 1px solid var(--grey-200);
+}
+.salt-badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 10px; border-radius: 12px;
+  background: var(--grey-100); color: var(--grey-600);
+  text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px;
+}
+.salt-badge.premium {
+  background: rgba(14, 124, 123, 0.12); color: var(--teal);
+}
+.salt-purity {
+  margin-top: 24px; padding-top: 24px;
+  border-top: 1px solid var(--grey-200);
+}
+.salt-purity h4 {
+  font-size: 17px; color: var(--navy); margin-bottom: 16px;
+}
+.purity-stats {
+  display: flex; gap: 24px; margin-bottom: 16px;
+}
+.purity-item { flex: 1; text-align: center; }
+.purity-number {
+  display: block; font-size: 32px; font-weight: 800; color: var(--teal);
+}
+.purity-label {
+  display: block; font-size: 12px; color: var(--grey-600); margin-top: 4px;
+}
+.lab-badges {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+}
+.lab-badge {
+  font-size: 11px; font-weight: 600;
+  padding: 4px 12px; border-radius: 20px;
+  background: rgba(14, 124, 123, 0.08); color: var(--teal);
+}
+@media (max-width: 900px) {
+  .salt-types-grid { grid-template-columns: 1fr; }
+  .purity-stats { flex-direction: column; gap: 16px; }
+}
+
 /* ---- WHY US ---- */
 .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
 .why-card {

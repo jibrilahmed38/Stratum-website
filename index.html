@@ -91,20 +91,73 @@
 
     <div class="products-grid">
 
-      <div class="product-card featured">
-        <div class="product-icon">
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="24" width="48" height="28" rx="4" fill="#0E7C7B" opacity="0.15"/><rect x="12" y="12" width="40" height="8" rx="2" fill="#0E7C7B" opacity="0.3"/><circle cx="32" cy="38" r="8" fill="#0E7C7B"/><path d="M32 33v10M27 38h10" stroke="#fff" stroke-width="2"/></svg>
-        </div>
+      <div class="product-card featured salt-showcase">
         <div class="product-badge">Flagship Product</div>
         <h3>Premium African Salt</h3>
-        <p>High-purity food-grade and industrial-grade salt from our family-owned facility. Independently tested by Fera Science (UKAS accredited) at 95%+ NaCl purity with heavy metals well below EU food safety limits.</p>
-        <ul class="product-specs">
-          <li>95%+ NaCl purity (375,000 mg/kg sodium)</li>
-          <li>Cadmium, lead, mercury below EU limits</li>
-          <li>Natural mineral profile (Ca, Mg, K)</li>
-          <li>Bulk, 25kg bags, or 1,000kg jumbo sacks</li>
-        </ul>
-        <a href="#contact" class="btn btn-small">Request Spec Sheet</a>
+        <p>Three grades of premium salt from our ISO 22000:2018 certified facility, independently verified by Bureau Veritas and Fera Science (UKAS accredited). Tested at 98.78% NaCl purity with all heavy metals below detection limits.</p>
+
+        <div class="salt-types-grid">
+          <div class="salt-type-card">
+            <h4>Iodised Salt</h4>
+            <span class="salt-badge">Food Grade</span>
+            <p>Refined iodized table salt, KI fortified with anti-caking agents. Fully compliant with KS EAS 35:2021 edible salt standards.</p>
+            <ul class="product-specs">
+              <li>NaCl: 97 - 99.9%</li>
+              <li>Iodine: 30 - 60 ppm KI</li>
+              <li>Grades 1 - 3 (0.3mm to 2.0mm)</li>
+              <li>Retail pouches and 50kg sacks</li>
+            </ul>
+          </div>
+
+          <div class="salt-type-card">
+            <h4>Industrial Salt</h4>
+            <span class="salt-badge">Bulk Supply</span>
+            <p>High-volume salt for water treatment, de-icing, chemical processing, and industrial applications.</p>
+            <ul class="product-specs">
+              <li>NaCl: 95%+</li>
+              <li>Bulk, 25kg bags, or jumbo sacks</li>
+              <li>Flexible specifications</li>
+              <li>Consistent supply guaranteed</li>
+            </ul>
+          </div>
+
+          <div class="salt-type-card xinlabi">
+            <h4>Xinlabi Salt</h4>
+            <span class="salt-badge premium">Organic / Natural</span>
+            <p>Solar-evaporated, additive-free rock salt with a rich natural mineral profile. No iodine, no anti-caking agents.</p>
+            <ul class="product-specs">
+              <li>NaCl: 97 - 99.9% (dry basis)</li>
+              <li>1.9x more calcium than Himalayan salt</li>
+              <li>1.6x more magnesium, significantly lower contaminants</li>
+              <li>UKAS lab verified (Fera Science, UK)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="salt-purity">
+          <h4>Purity and Lab Verification</h4>
+          <div class="purity-stats">
+            <div class="purity-item">
+              <span class="purity-number">98.78%</span>
+              <span class="purity-label">NaCl Purity (Bureau Veritas)</span>
+            </div>
+            <div class="purity-item">
+              <span class="purity-number">&lt;0.01</span>
+              <span class="purity-label">mg/kg Heavy Metals (Pb, Cd, Hg)</span>
+            </div>
+            <div class="purity-item">
+              <span class="purity-number">Zero</span>
+              <span class="purity-label">Microbiological Contamination</span>
+            </div>
+          </div>
+          <div class="lab-badges">
+            <span class="lab-badge">UKAS Accredited (Fera Science)</span>
+            <span class="lab-badge">ISO 22000:2018 Certified</span>
+            <span class="lab-badge">Bureau Veritas Verified</span>
+          </div>
+        </div>
+
+        <a href="#contact" class="btn btn-small">Request Spec Sheet &amp; Lab Reports</a>
       </div>
 
       <div class="product-card">
@@ -288,7 +341,9 @@
           <label for="product">Product Interest</label>
           <select id="product" name="product">
             <option value="">Select a product</option>
-            <option value="salt">Premium African Salt</option>
+            <option value="salt-iodised">Salt - Iodised (Food Grade)</option>
+            <option value="salt-industrial">Salt - Industrial</option>
+            <option value="salt-xinlabi">Salt - Xinlabi Organic</option>
             <option value="avocado-oil">Avocado Crude Oil</option>
             <option value="sesame">Sesame Seeds</option>
             <option value="frankincense">Frankincense</option>
