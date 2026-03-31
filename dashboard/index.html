@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Stratum Commodities — Sales Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1B3A5C;
+      --navy-dark: #122840;
+      --navy-light: #234B73;
+      --teal: #0E7C7B;
+      --teal-dark: #0A5E5D;
+      --mint: #5DCAA5;
+      --mint-light: #9FE1CB;
+      --green: #22C55E;
+      --green-bg: rgba(34,197,94,0.08);
+      --amber: #F59E0B;
+      --amber-bg: rgba(245,158,11,0.08);
+      --red: #EF4444;
+      --red-bg: rgba(239,68,68,0.08);
+      --blue: #3B82F6;
+      --blue-bg: rgba(59,130,246,0.08);
+      --purple: #8B5CF6;
+      --purple-bg: rgba(139,92,246,0.08);
+      --light-bg: #F5F8FA;
+      --white: #FFFFFF;
+      --grey-50: #F8FAFB;
+      --grey-100: #F0F3F5;
+      --grey-200: #E2E7EB;
+      --grey-300: #CBD5E1;
+      --grey-400: #8899A6;
+      --grey-600: #5C6D7E;
+      --grey-800: #2C3E50;
+      --text: #1a2332;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+      --shadow: 0 1px 3px rgba(27,58,92,0.06), 0 4px 16px rgba(27,58,92,0.06);
+      --shadow-lg: 0 4px 24px rgba(27,58,92,0.1);
+      --transition: 0.2s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--light-bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ---- TOP BAR ---- */
+    .topbar {
+      background: var(--navy-dark);
+      padding: 0 32px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+    .topbar-brand svg { flex-shrink: 0; }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--mint-light);
+      font-weight: 500;
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .topbar-time {
+      font-size: 12px;
+      color: var(--grey-400);
+    }
+    .btn-refresh {
+      background: var(--navy-light);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: var(--radius-xs);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-refresh:hover { background: var(--teal); }
+
+    /* ---- LAYOUT ---- */
+    .dashboard {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px 32px 48px;
+    }
+    .dashboard-header {
+      margin-bottom: 24px;
+    }
+    .dashboard-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .dashboard-header p {
+      font-size: 13px;
+      color: var(--grey-600);
+      margin-top: 4px;
+    }
+
+    /* ---- KPI CARDS ---- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid var(--grey-200);
+      transition: var(--transition);
+    }
+    .kpi-card:hover { box-shadow: var(--shadow); }
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--grey-400);
+      margin-bottom: 8px;
+    }
+    .kpi-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1;
+    }
+    .kpi-sub {
+      font-size: 12px;
+      color: var(--grey-600);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .kpi-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .kpi-badge.green { background: var(--green-bg); color: var(--green); }
+    .kpi-badge.amber { background: var(--amber-bg); color: var(--amber); }
+    .kpi-badge.red { background: var(--red-bg); color: var(--red); }
+
+    /* ---- TWO COLUMN LAYOUT ---- */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .grid-full {
+      margin-bottom: 24px;
+    }
+
+    /* ---- PANELS ---- */
+    .panel {
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--grey-200);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--grey-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .panel-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: var(--grey-100);
+      color: var(--grey-600);
+    }
+    .panel-body { padding: 20px; }
+
+    /* ---- SEGMENT BARS ---- */
+    .segment-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--grey-100);
+    }
+    .segment-row:last-child { border-bottom: none; }
+    .segment-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      width: 140px;
+      flex-shrink: 0;
+    }
+    .segment-bar-wrap {
+      flex: 1;
+      height: 28px;
+      background: var(--grey-100);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+    }
+    .segment-bar-fill {
+      height: 100%;
+      transition: width 0.6s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--white);
+      min-width: 0;
+    }
+    .bar-new { background: var(--grey-300); color: var(--grey-600); }
+    .bar-contacted { background: var(--blue); }
+    .bar-replied { background: var(--green); }
+    .bar-meeting { background: var(--purple); }
+    .bar-phone { background: var(--amber); }
+    .bar-bounced { background: var(--red); }
+    .segment-count {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ---- STATUS LEGEND ---- */
+    .legend {
+      display: flex;
+      gap: 16px;
+      padding: 12px 20px;
+      border-top: 1px solid var(--grey-100);
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--grey-600);
+      font-weight: 500;
+    }
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    /* ---- FUNNEL ---- */
+    .funnel-stages {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .funnel-stage {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .funnel-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey-600);
+      width: 120px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .funnel-bar-wrap {
+      flex: 1;
+      height: 36px;
+      position: relative;
+    }
+    .funnel-bar {
+      height: 100%;
+      border-radius: var(--radius-xs);
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      transition: width 0.6s ease;
+      min-width: 40px;
+    }
+    .funnel-bar.s1 { background: linear-gradient(135deg, var(--navy), var(--navy-light)); }
+    .funnel-bar.s2 { background: linear-gradient(135deg, var(--blue), #60A5FA); }
+    .funnel-bar.s3 { background: linear-gradient(135deg, var(--teal), #2DD4BF); }
+    .funnel-bar.s4 { background: linear-gradient(135deg, var(--green), #4ADE80); }
+    .funnel-bar.s5 { background: linear-gradient(135deg, var(--purple), #A78BFA); }
+
+    /* ---- LEAD TABLE ---- */
+    .table-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--grey-200);
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 5px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--grey-200);
+      background: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--grey-600);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--teal);
+      color: var(--white);
+      border-color: var(--teal);
+    }
+    .search-input {
+      margin-left: auto;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--grey-200);
+      font-size: 12px;
+      font-family: inherit;
+      width: 220px;
+      outline: none;
+      transition: var(--transition);
+    }
+    .search-input:focus { border-color: var(--teal); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead th {
+      text-align: left;
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--grey-400);
+      background: var(--grey-50);
+      border-bottom: 1px solid var(--grey-200);
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    thead th:hover { color: var(--navy); }
+    tbody td {
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--grey-800);
+      border-bottom: 1px solid var(--grey-100);
+      white-space: nowrap;
+    }
+    tbody tr:hover { background: var(--grey-50); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .lead-name {
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .lead-company {
+      font-size: 12px;
+      color: var(--grey-600);
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .status-new { background: var(--grey-100); color: var(--grey-600); }
+    .status-contacted { background: var(--blue-bg); color: var(--blue); }
+    .status-replied { background: var(--green-bg); color: var(--green); }
+    .status-meeting_booked { background: var(--purple-bg); color: var(--purple); }
+    .status-phone_followup { background: var(--amber-bg); color: var(--amber); }
+    .status-bounced { background: var(--red-bg); color: var(--red); }
+    .status-completed { background: var(--green-bg); color: var(--teal-dark); }
+
+    .step-indicator {
+      display: flex;
+      gap: 3px;
+    }
+    .step-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--grey-200);
+    }
+    .step-dot.filled { background: var(--teal); }
+    .step-dot.current { background: var(--teal); box-shadow: 0 0 0 2px rgba(14,124,123,0.2); }
+
+    /* ---- ACTIVITY FEED ---- */
+    .activity-list { list-style: none; }
+    .activity-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--grey-100);
+      align-items: flex-start;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+    .activity-dot.sent { background: var(--blue); }
+    .activity-dot.reply { background: var(--green); }
+    .activity-dot.phone { background: var(--amber); }
+    .activity-dot.bounce { background: var(--red); }
+    .activity-text {
+      font-size: 13px;
+      color: var(--grey-800);
+      line-height: 1.4;
+    }
+    .activity-text strong { color: var(--navy); font-weight: 600; }
+    .activity-time {
+      font-size: 11px;
+      color: var(--grey-400);
+      margin-top: 2px;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1100px) {
+      .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+      .grid-2col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard { padding: 16px; }
+      .topbar { padding: 0 16px; }
+      .table-controls { flex-direction: column; align-items: stretch; }
+      .search-input { margin-left: 0; width: 100%; }
+    }
+
+    /* ---- EMPTY STATE ---- */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--grey-400);
+      font-size: 13px;
+    }
+
+    /* ---- SCROLLABLE TABLE ---- */
+    .table-wrap {
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <svg width="24" height="32" viewBox="0 0 60 80" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="20,76 4,40 20,4 36,40" fill="#ffffff"/>
+      <polygon points="32,76 16,40 32,4 48,40" fill="#0E7C7B" opacity="0.9"/>
+      <polygon points="44,76 28,40 44,4 60,40" fill="#ffffff" opacity="0.35"/>
+    </svg>
+    STRATUM SALES DASHBOARD
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-status">
+      <div class="status-dot"></div>
+      <span id="agentStatus">Agents Active</span>
+    </div>
+    <div class="topbar-time" id="lastUpdated"></div>
+    <button class="btn-refresh" onclick="loadData()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+      Refresh
+    </button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+
+  <div class="dashboard-header">
+    <h1>Pipeline Overview</h1>
+    <p>Real-time view of lead outreach across all segments</p>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Leads</div>
+      <div class="kpi-value" id="kpiTotal">0</div>
+      <div class="kpi-sub">Across all segments</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Contacted</div>
+      <div class="kpi-value" id="kpiContacted">0</div>
+      <div class="kpi-sub"><span class="kpi-badge green" id="kpiContactedPct">0%</span> of total</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Replies</div>
+      <div class="kpi-value" id="kpiReplies">0</div>
+      <div class="kpi-sub"><span class="kpi-badge green" id="kpiReplyRate">0%</span> reply rate</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Meetings Booked</div>
+      <div class="kpi-value" id="kpiMeetings">0</div>
+      <div class="kpi-sub"><span class="kpi-badge amber" id="kpiMeetingRate">0%</span> conversion</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Phone Follow-Up</div>
+      <div class="kpi-value" id="kpiPhone">0</div>
+      <div class="kpi-sub">Awaiting call</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Bounced</div>
+      <div class="kpi-value" id="kpiBounced">0</div>
+      <div class="kpi-sub"><span class="kpi-badge red" id="kpiBounceRate">0%</span> bounce rate</div>
+    </div>
+  </div>
+
+  <!-- SEGMENT BREAKDOWN + FUNNEL -->
+  <div class="grid-2col">
+
+    <!-- Segment Pipeline -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Pipeline by Segment</div>
+      </div>
+      <div class="panel-body" id="segmentBars">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--grey-300)"></div>New</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Contacted</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Replied</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Meeting</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Phone</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Bounced</div>
+      </div>
+    </div>
+
+    <!-- Funnel -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Outreach Funnel</div>
+      </div>
+      <div class="panel-body">
+        <div class="funnel-stages" id="funnelStages">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT ACTIVITY + EMAIL SEQUENCE PROGRESS -->
+  <div class="grid-2col">
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Recent Activity</div>
+        <div class="panel-badge" id="activityCount">0 events</div>
+      </div>
+      <div class="panel-body">
+        <ul class="activity-list" id="activityFeed">
+          <!-- Rendered by JS -->
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Email Sequence Progress</div>
+      </div>
+      <div class="panel-body" id="sequenceProgress">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL LEAD TABLE -->
+  <div class="grid-full">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">All Leads</div>
+        <div class="panel-badge" id="leadCount">0 leads</div>
+      </div>
+      <div class="table-controls">
+        <button class="filter-btn active" data-filter="all" onclick="filterLeads('all', this)">All</button>
+        <button class="filter-btn" data-filter="food" onclick="filterLeads('food', this)">Food</button>
+        <button class="filter-btn" data-filter="industrial" onclick="filterLeads('industrial', this)">Industrial</button>
+        <button class="filter-btn" data-filter="distributors" onclick="filterLeads('distributors', this)">Distributors</button>
+        <button class="filter-btn" data-filter="replied" onclick="filterLeads('replied', this)">Replied</button>
+        <button class="filter-btn" data-filter="phone_followup" onclick="filterLeads('phone_followup', this)">Phone Follow-Up</button>
+        <input type="text" class="search-input" placeholder="Search leads..." oninput="searchLeads(this.value)">
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th onclick="sortTable('name')">Name</th>
+              <th onclick="sortTable('company')">Company</th>
+              <th onclick="sortTable('title')">Title</th>
+              <th onclick="sortTable('country')">Country</th>
+              <th onclick="sortTable('segment')">Segment</th>
+              <th onclick="sortTable('status')">Status</th>
+              <th>Sequence</th>
+              <th onclick="sortTable('lastEmail')">Last Email</th>
+              <th onclick="sortTable('nextEmail')">Next Email</th>
+            </tr>
+          </thead>
+          <tbody id="leadTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// DASHBOARD DATA & RENDERING
+// ============================================================
+
+// This will be populated by the Python data exporter
+let LEADS = [];
+let currentFilter = 'all';
+let currentSearch = '';
+let sortField = 'status';
+let sortAsc = true;
+
+// Load data from the embedded JSON or external file
+function loadData() {
+  // Try loading from external data.json (generated by export script)
+  fetch('data.json?' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      LEADS = data.leads || [];
+      document.getElementById('lastUpdated').textContent =
+        'Updated: ' + (data.exported_at || new Date().toLocaleString());
+      render();
+    })
+    .catch(() => {
+      // Fallback: use demo data if no data.json exists
+      LEADS = getDemoData();
+      document.getElementById('lastUpdated').textContent =
+        'Demo data — run export_dashboard.py to load real data';
+      render();
+    });
+}
+
+function render() {
+  renderKPIs();
+  renderSegmentBars();
+  renderFunnel();
+  renderActivityFeed();
+  renderSequenceProgress();
+  renderLeadTable();
+}
+
+// ---- KPIs ----
+function renderKPIs() {
+  const total = LEADS.length;
+  const contacted = LEADS.filter(l => l.status !== 'new' && l.status !== 'bounced').length;
+  const replied = LEADS.filter(l => l.status === 'replied' || l.status === 'meeting_booked').length;
+  const meetings = LEADS.filter(l => l.status === 'meeting_booked').length;
+  const phone = LEADS.filter(l => l.status === 'phone_followup').length;
+  const bounced = LEADS.filter(l => l.status === 'bounced').length;
+
+  document.getElementById('kpiTotal').textContent = total;
+  document.getElementById('kpiContacted').textContent = contacted;
+  document.getElementById('kpiReplies').textContent = replied;
+  document.getElementById('kpiMeetings').textContent = meetings;
+  document.getElementById('kpiPhone').textContent = phone;
+  document.getElementById('kpiBounced').textContent = bounced;
+
+  document.getElementById('kpiContactedPct').textContent =
+    total ? Math.round(contacted / total * 100) + '%' : '0%';
+  document.getElementById('kpiReplyRate').textContent =
+    contacted ? Math.round(replied / contacted * 100) + '%' : '0%';
+  document.getElementById('kpiMeetingRate').textContent =
+    contacted ? Math.round(meetings / contacted * 100) + '%' : '0%';
+  document.getElementById('kpiBounceRate').textContent =
+    total ? Math.round(bounced / total * 100) + '%' : '0%';
+}
+
+// ---- Segment Bars ----
+function renderSegmentBars() {
+  const segments = ['food', 'industrial', 'distributors'];
+  const labels = { food: 'Food Manufacturers', industrial: 'Industrial Buyers', distributors: 'Distributors' };
+  const statuses = ['new', 'contacted', 'replied', 'meeting_booked', 'phone_followup', 'bounced'];
+  const barClasses = {
+    new: 'bar-new', contacted: 'bar-contacted', replied: 'bar-replied',
+    meeting_booked: 'bar-meeting', phone_followup: 'bar-phone', bounced: 'bar-bounced'
+  };
+
+  let html = '';
+  segments.forEach(seg => {
+    const segLeads = LEADS.filter(l => l.segment === seg);
+    const total = segLeads.length;
+    html += `<div class="segment-row">
+      <div class="segment-name">${labels[seg]}</div>
+      <div class="segment-bar-wrap">`;
+    if (total === 0) {
+      html += `<div class="segment-bar-fill bar-new" style="width:100%;opacity:0.3">No leads</div>`;
+    } else {
+      statuses.forEach(st => {
+        const count = segLeads.filter(l => l.status === st).length;
+        if (count > 0) {
+          const pct = (count / total * 100).toFixed(1);
+          html += `<div class="segment-bar-fill ${barClasses[st]}" style="width:${pct}%"
+            title="${count} ${st}">${count > 1 ? count : ''}</div>`;
+        }
+      });
+    }
+    html += `</div><div class="segment-count">${total}</div></div>`;
+  });
+
+  document.getElementById('segmentBars').innerHTML = html;
+}
+
+// ---- Funnel ----
+function renderFunnel() {
+  const stages = [
+    { label: 'Total Leads', count: LEADS.length, cls: 's1' },
+    { label: 'Contacted', count: LEADS.filter(l => l.sequence_step >= 1).length, cls: 's2' },
+    { label: 'Email 2 Sent', count: LEADS.filter(l => l.sequence_step >= 2).length, cls: 's3' },
+    { label: 'Email 3 Sent', count: LEADS.filter(l => l.sequence_step >= 3).length, cls: 's4' },
+    { label: 'Replied', count: LEADS.filter(l => l.status === 'replied' || l.status === 'meeting_booked').length, cls: 's5' },
+  ];
+
+  const maxCount = Math.max(...stages.map(s => s.count), 1);
+  let html = '';
+  stages.forEach(s => {
+    const pct = Math.max((s.count / maxCount * 100), 8);
+    html += `<div class="funnel-stage">
+      <div class="funnel-label">${s.label}</div>
+      <div class="funnel-bar-wrap">
+        <div class="funnel-bar ${s.cls}" style="width:${pct}%">${s.count}</div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('funnelStages').innerHTML = html;
+}
+
+// ---- Activity Feed ----
+function renderActivityFeed() {
+  // Generate activity from lead data
+  const activities = [];
+  LEADS.forEach(l => {
+    if (l.status === 'replied') {
+      activities.push({ type: 'reply', text: `<strong>${l.first_name} ${l.last_name}</strong> at ${l.company} replied`, date: l.last_email_date });
+    }
+    if (l.status === 'contacted' && l.sequence_step >= 1) {
+      activities.push({ type: 'sent', text: `Email ${l.sequence_step} sent to <strong>${l.first_name}</strong> at ${l.company}`, date: l.last_email_date });
+    }
+    if (l.status === 'phone_followup') {
+      activities.push({ type: 'phone', text: `<strong>${l.first_name} ${l.last_name}</strong> flagged for phone follow-up`, date: l.last_email_date });
+    }
+    if (l.status === 'bounced') {
+      activities.push({ type: 'bounce', text: `Email bounced for <strong>${l.first_name}</strong> at ${l.company}`, date: l.last_email_date });
+    }
+  });
+
+  // Sort by date descending
+  activities.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  const recent = activities.slice(0, 15);
+
+  document.getElementById('activityCount').textContent = activities.length + ' events';
+
+  if (recent.length === 0) {
+    document.getElementById('activityFeed').innerHTML =
+      '<div class="empty-state">No activity yet. Run the agents to start outreach.</div>';
+    return;
+  }
+
+  let html = '';
+  recent.forEach(a => {
+    html += `<li class="activity-item">
+      <div class="activity-dot ${a.type}"></div>
+      <div>
+        <div class="activity-text">${a.text}</div>
+        <div class="activity-time">${a.date || 'No date'}</div>
+      </div>
+    </li>`;
+  });
+
+  document.getElementById('activityFeed').innerHTML = html;
+}
+
+// ---- Sequence Progress ----
+function renderSequenceProgress() {
+  const steps = [0, 1, 2, 3, 4];
+  const labels = ['Not Started', 'Email 1 Sent', 'Email 2 Sent', 'Email 3 Sent', 'Phone Flagged'];
+  const total = LEADS.length || 1;
+
+  let html = '';
+  steps.forEach((step, i) => {
+    const count = LEADS.filter(l => l.sequence_step === step).length;
+    const pct = (count / total * 100).toFixed(0);
+    html += `<div class="segment-row">
+      <div class="segment-name" style="width:120px;font-size:12px;">${labels[i]}</div>
+      <div class="segment-bar-wrap">
+        <div class="segment-bar-fill" style="width:${Math.max(pct, 2)}%;background:var(--teal);opacity:${0.3 + (i * 0.175)}">${count}</div>
+      </div>
+      <div class="segment-count">${pct}%</div>
+    </div>`;
+  });
+
+  document.getElementById('sequenceProgress').innerHTML = html;
+}
+
+// ---- Lead Table ----
+function renderLeadTable() {
+  let filtered = [...LEADS];
+
+  // Apply segment/status filter
+  if (currentFilter !== 'all') {
+    if (['food', 'industrial', 'distributors'].includes(currentFilter)) {
+      filtered = filtered.filter(l => l.segment === currentFilter);
+    } else {
+      filtered = filtered.filter(l => l.status === currentFilter);
+    }
+  }
+
+  // Apply search
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    filtered = filtered.filter(l =>
+      (l.first_name + ' ' + l.last_name).toLowerCase().includes(q) ||
+      (l.company || '').toLowerCase().includes(q) ||
+      (l.email || '').toLowerCase().includes(q) ||
+      (l.country || '').toLowerCase().includes(q)
+    );
+  }
+
+  // Sort
+  filtered.sort((a, b) => {
+    let va = a[sortField] || '';
+    let vb = b[sortField] || '';
+    if (typeof va === 'string') va = va.toLowerCase();
+    if (typeof vb === 'string') vb = vb.toLowerCase();
+    if (va < vb) return sortAsc ? -1 : 1;
+    if (va > vb) return sortAsc ? 1 : -1;
+    return 0;
+  });
+
+  document.getElementById('leadCount').textContent = filtered.length + ' leads';
+
+  if (filtered.length === 0) {
+    document.getElementById('leadTableBody').innerHTML =
+      '<tr><td colspan="9" class="empty-state">No leads match your filter.</td></tr>';
+    return;
+  }
+
+  let html = '';
+  filtered.forEach(l => {
+    const steps = [1, 2, 3].map(s => {
+      if (l.sequence_step > s) return 'filled';
+      if (l.sequence_step === s) return 'current';
+      return '';
+    });
+
+    const statusLabel = (l.status || 'new').replace('_', ' ');
+
+    html += `<tr>
+      <td>
+        <div class="lead-name">${l.first_name} ${l.last_name}</div>
+        <div class="lead-company" style="font-size:11px;color:var(--grey-400)">${l.email}</div>
+      </td>
+      <td>${l.company || ''}</td>
+      <td style="font-size:12px">${l.title || ''}</td>
+      <td>${l.country || ''}</td>
+      <td><span style="font-size:12px;text-transform:capitalize">${l.segment}</span></td>
+      <td><span class="status-pill status-${l.status || 'new'}">${statusLabel}</span></td>
+      <td>
+        <div class="step-indicator">
+          <div class="step-dot ${steps[0]}"></div>
+          <div class="step-dot ${steps[1]}"></div>
+          <div class="step-dot ${steps[2]}"></div>
+        </div>
+      </td>
+      <td style="font-size:12px">${l.last_email_date || ''}</td>
+      <td style="font-size:12px">${l.next_email_date || ''}</td>
+    </tr>`;
+  });
+
+  document.getElementById('leadTableBody').innerHTML = html;
+}
+
+function filterLeads(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLeadTable();
+}
+
+function searchLeads(query) {
+  currentSearch = query;
+  renderLeadTable();
+}
+
+function sortTable(field) {
+  if (sortField === field) {
+    sortAsc = !sortAsc;
+  } else {
+    sortField = field;
+    sortAsc = true;
+  }
+  renderLeadTable();
+}
+
+// ---- Demo Data ----
+function getDemoData() {
+  return [
+    { first_name: "Patrick", last_name: "Fargeot", email: "p.fargeot@lavignery.fr", title: "Procurement Manager", company: "LA VIGNERY", country: "France", segment: "food", status: "new", sequence_step: 0, last_email_date: "", next_email_date: "" },
+    { first_name: "Theres", last_name: "Thieme", email: "t.thieme@anona.de", title: "Head of Procurement", company: "anona GmbH", country: "Germany", segment: "food", status: "new", sequence_step: 0, last_email_date: "", next_email_date: "" },
+    { first_name: "Hans", last_name: "Mueller", email: "h.mueller@bavariasalz.de", title: "Supply Chain Director", company: "BavariaSalz GmbH", country: "Germany", segment: "food", status: "contacted", sequence_step: 1, last_email_date: "2026-03-28", next_email_date: "2026-03-31" },
+    { first_name: "Sophie", last_name: "van den Berg", email: "s.vandenberg@hollandfoods.nl", title: "Ingredient Buyer", company: "Holland Foods BV", country: "Netherlands", segment: "food", status: "replied", sequence_step: 2, last_email_date: "2026-03-27", next_email_date: "" },
+    { first_name: "Lars", last_name: "Eriksson", email: "lars@nordicwater.se", title: "Operations Manager", company: "Nordic Water AB", country: "Sweden", segment: "industrial", status: "contacted", sequence_step: 2, last_email_date: "2026-03-29", next_email_date: "2026-04-03" },
+    { first_name: "Marie", last_name: "Dupont", email: "m.dupont@chemfrance.fr", title: "Plant Manager", company: "ChemFrance SA", country: "France", segment: "industrial", status: "phone_followup", sequence_step: 4, last_email_date: "2026-03-20", next_email_date: "" },
+    { first_name: "Jan", last_name: "De Vries", email: "jan@eurotrade.nl", title: "Managing Director", company: "EuroTrade BV", country: "Netherlands", segment: "distributors", status: "meeting_booked", sequence_step: 2, last_email_date: "2026-03-25", next_email_date: "" },
+    { first_name: "Anna", last_name: "Kowalski", email: "a.kowalski@polskafood.pl", title: "Purchasing Manager", company: "PolskaFood Sp.", country: "Poland", segment: "food", status: "bounced", sequence_step: 0, last_email_date: "", next_email_date: "" },
+  ];
+}
+
+// ---- Init ----
+loadData();
+</script>
+
+</body>
+</html>
