@@ -7,6 +7,7 @@
 <title>Stratum Commodities &mdash; Salt Market Intelligence Report Q1 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>Chart.defaults.devicePixelRatio = 3;</script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -23,6 +24,12 @@
   --text3: #8892aa;
   --border: rgba(0,0,0,0.08);
   --border2: rgba(0,0,0,0.14);
+}
+@page {
+  margin: 18mm 15mm 14mm 15mm;
+}
+@page:first {
+  margin-top: 0;
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
@@ -92,8 +99,33 @@ nav {
 .tab-btn:not(.active-ind):not(.active-iod):not(.active-org) .tab-num { background: #cbd5e0; }
 .tab-label-main { font-size: 13px; font-weight: 700; color: var(--text); }
 .tab-label-sub { font-size: 10px; color: var(--text3); font-weight: 500; }
-.tab-content { display: none; padding: 28px; }
+.tab-content { display: block !important; padding: 20px 24px 8px; }
 .tab-content.visible { display: block; }
+.tabs-bar { display: none !important; }
+.tabs-container { box-shadow: none; border: none; background: transparent; overflow: visible; border-radius: 0; }
+
+.report-header { break-inside: avoid; page-break-after: avoid; }
+.insight { break-inside: avoid; page-break-after: avoid; }
+.metrics-row { break-inside: avoid; }
+.two-col { break-inside: avoid; }
+.card { break-inside: avoid; }
+.stats-grid { break-inside: avoid; }
+.compare-table { break-inside: avoid; }
+.tags-row { break-inside: avoid; }
+table { break-inside: avoid; }
+
+#content-iod { page-break-before: always; padding-top: 12px; }
+#content-org { page-break-before: always; padding-top: 12px; }
+.compare-section { page-break-before: always; padding-top: 12px; }
+
+nav { position: relative; }
+.hero { padding: 40px 5% 30px; }
+.section { padding: 24px 5%; }
+.section-heading { margin-bottom: 20px; }
+.insight { margin-bottom: 14px; padding: 12px 16px; }
+.metrics-row { margin-bottom: 14px; }
+.two-col { margin-bottom: 14px; }
+.tabs-container { margin-bottom: 0; }
 
 /* REPORT HEADER BAR */
 .report-header { border-radius: 10px; padding: 18px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }

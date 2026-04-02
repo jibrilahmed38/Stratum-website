@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Stratum Commodities &mdash; Salt Market Intelligence Report Q1 2026</title>
+<title>Stratum Commodities: Salt Market Intelligence Report Q1 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>Chart.defaults.devicePixelRatio = 3;</script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
@@ -23,6 +24,12 @@
   --text3: #8892aa;
   --border: rgba(0,0,0,0.08);
   --border2: rgba(0,0,0,0.14);
+}
+@page {
+  margin: 18mm 15mm 14mm 15mm;
+}
+@page:first {
+  margin-top: 0;
 }
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
@@ -92,8 +99,36 @@ nav {
 .tab-btn:not(.active-ind):not(.active-iod):not(.active-org) .tab-num { background: #cbd5e0; }
 .tab-label-main { font-size: 13px; font-weight: 700; color: var(--text); }
 .tab-label-sub { font-size: 10px; color: var(--text3); font-weight: 500; }
-.tab-content { display: none; padding: 28px; }
+.tab-content { display: block !important; padding: 20px 24px 8px; }
 .tab-content.visible { display: block; }
+.tabs-bar { display: none !important; }
+.tabs-container { box-shadow: none; border: none; background: transparent; overflow: visible; border-radius: 0; }
+
+/* Keep components from splitting across pages */
+.report-header { break-inside: avoid; page-break-after: avoid; }
+.insight { break-inside: avoid; page-break-after: avoid; }
+.metrics-row { break-inside: avoid; }
+.two-col { break-inside: avoid; }
+.card { break-inside: avoid; }
+.stats-grid { break-inside: avoid; }
+.compare-table { break-inside: avoid; }
+.tags-row { break-inside: avoid; }
+table { break-inside: avoid; }
+
+/* Only force page breaks where it really matters */
+#content-iod { page-break-before: always; padding-top: 12px; }
+#content-org { page-break-before: always; padding-top: 12px; }
+.compare-section { page-break-before: always; padding-top: 12px; }
+
+/* Tighten spacing for print */
+nav { position: relative; }
+.hero { padding: 40px 5% 30px; }
+.section { padding: 24px 5%; }
+.section-heading { margin-bottom: 20px; }
+.insight { margin-bottom: 14px; padding: 12px 16px; }
+.metrics-row { margin-bottom: 14px; }
+.two-col { margin-bottom: 14px; }
+.tabs-container { margin-bottom: 0; }
 
 /* REPORT HEADER BAR */
 .report-header { border-radius: 10px; padding: 18px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
@@ -242,18 +277,18 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
       <div class="nav-logo-sub">COMMODITIES</div>
     </div>
   </a>
-  <div class="nav-badge">Salt Market Intelligence &mdash; Q1 2026</div>
+  <div class="nav-badge">Salt Market Intelligence: Q1 2026</div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">European Market Report</div>
   <h1>Salt Market Intelligence<br><span>Three Product Categories</span></h1>
-  <p class="hero-sub">A strategic breakdown of the European salt market across industrial, iodised table salt, and organic/gourmet segments &mdash; benchmarked against Stratum&rsquo;s current supply position.</p>
+  <p class="hero-sub">A strategic breakdown of the European salt market across industrial, iodised table salt, and organic/gourmet segments, benchmarked against Stratum&rsquo;s current supply position.</p>
   <div class="hero-pills">
-    <span class="hero-pill">Industrial Salt &mdash; Phase 1</span>
-    <span class="hero-pill">Iodised Table Salt &mdash; Ready Now</span>
-    <span class="hero-pill">Organic/Gourmet &mdash; Phase 3</span>
+    <span class="hero-pill">Industrial Salt: Phase 1 (UK now, EU after REACH)</span>
+    <span class="hero-pill">Iodised Table Salt: Phases 2-3 (Requires Certs)</span>
+    <span class="hero-pill">Organic/Gourmet: Phase 3+ (Highest Margin)</span>
     <span class="hero-pill">Data: 2022&ndash;2025</span>
   </div>
 </section>
@@ -279,7 +314,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
       <div class="stat-sub stat-up">&#9650; +5.97% CAGR to 2033</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Germany &mdash; largest importer</div>
+      <div class="stat-label">Germany (largest importer)</div>
       <div class="stat-value">1,423K t</div>
       <div class="stat-sub stat-neutral">28% of EU imports</div>
     </div>
@@ -292,7 +327,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
 
   <div style="background:#EBF2FA;border-left:4px solid #1B3A5C;border-radius:10px;padding:14px 18px;margin-bottom:20px;">
     <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#1B3A5C;margin-bottom:6px;">Stratum Opportunity</div>
-    <p style="font-size:13px;line-height:1.7;color:#1a2035;">EU import prices peaked at $140/t in 2023 and have softened to $136/t &mdash; but remain 73% higher than 2015 levels. France pays the most ($204/t), Poland the least ($96/t). African solar salt has a very low carbon footprint (1kg CO2/t) &mdash; a growing differentiator vs rock salt (up to 100kg CO2/t). Global wholesale prices have declined from $0.20&ndash;$1.43/kg in 2023 to $0.20&ndash;$0.99/kg in 2024, making buyers actively seek competitive alternatives.</p>
+    <p style="font-size:13px;line-height:1.7;color:#1a2035;">EU import prices peaked at $140/t in 2023 and have softened to $136/t , but remain 73% higher than 2015 levels. France pays the most ($204/t), Poland the least ($96/t). African solar salt has a very low carbon footprint (1kg CO2/t) , a growing differentiator vs rock salt (up to 100kg CO2/t). Global wholesale prices have declined from $0.20&ndash;$1.43/kg in 2023 to $0.20&ndash;$0.99/kg in 2024, making buyers actively seek competitive alternatives.</p>
   </div>
 
   <div class="grid-4">
@@ -320,7 +355,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
 
   <div class="grid-2col">
     <div style="background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px;">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:10px;">EU salt import price trend &mdash; all grades ($/tonne, 2022&ndash;2025)</div>
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text3);margin-bottom:10px;">EU salt import price trend, all grades ($/tonne, 2022&ndash;2025)</div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;">
         <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#4a5568;"><span style="width:10px;height:10px;border-radius:2px;background:#1B3A5C;flex-shrink:0;"></span>EU average</span>
         <span style="display:flex;align-items:center;gap:5px;font-size:11px;color:#4a5568;"><span style="width:10px;height:10px;border-radius:2px;background:#0E7C7B;flex-shrink:0;"></span>France</span>
@@ -362,17 +397,17 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
     <button class="tab-btn active-ind" id="tab-ind" onclick="showTab('ind')">
       <div class="tab-num">1</div>
       <div class="tab-label-main">Industrial Salt</div>
-      <div class="tab-label-sub">Not food grade &mdash; Phase 1</div>
+      <div class="tab-label-sub">UK: ready now | EU: requires REACH</div>
     </button>
     <button class="tab-btn" id="tab-iod" onclick="showTab('iod')">
       <div class="tab-num">2</div>
       <div class="tab-label-main">Iodised Table Salt</div>
-      <div class="tab-label-sub">Food grade &mdash; Phase 2</div>
+      <div class="tab-label-sub">Requires FSSC 22000 + SALSA / BRCGS S&amp;D</div>
     </button>
     <button class="tab-btn" id="tab-org" onclick="showTab('org')">
       <div class="tab-num">3</div>
       <div class="tab-label-main">Organic / Gourmet Salt</div>
-      <div class="tab-label-sub">Premium food grade &mdash; Phase 3</div>
+      <div class="tab-label-sub">Premium food grade, longest runway</div>
     </button>
   </div>
 
@@ -386,11 +421,11 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <h3>Industrial Salt</h3>
         <p>De-icing &bull; Water treatment &bull; Chemical manufacturing &bull; Not food grade &bull; Bulk supply</p>
       </div>
-      <div class="rh-badge">Phase 1 &mdash; Start Now</div>
+      <div class="rh-badge">Phase 1: Start Now</div>
     </div>
     <div class="insight ind">
       <div class="insight-label">Stratum Positioning</div>
-      <p>National Salt Somalia produces unrefined and partially refined salt which is ready for industrial use now &mdash; no food-grade certifications required. Compete on price and volume. African solar salt produces just 1kg CO2 per tonne vs up to 100kg for mined rock salt &mdash; a growing differentiator in Europe.</p>
+      <p>National Salt Somalia produces refined and partially refined salt ready for industrial use now. No food-grade certifications required for UK sales (CoA per shipment only). EU industrial sales require REACH registration (in progress, 3-6 months). Wholesalers and repackers can also be served immediately. Factory can refine to 99.4%+ NaCl on request for potable water treatment buyers. African solar salt produces just 1kg CO2 per tonne vs up to 100kg for mined rock salt, a growing differentiator in Europe.</p>
     </div>
     <div class="metrics-row">
       <div class="metric-card ind"><div class="mc-label">Source price range</div><div class="mc-value">$25&ndash;75/t</div><div class="mc-sub stat-neutral">Ex-Africa bulk</div></div>
@@ -400,7 +435,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
     </div>
     <div class="two-col">
       <div class="card">
-        <div class="card-title">Price trend &mdash; Europe 2022&ndash;2025 ($/tonne)</div>
+        <div class="card-title">Price trend: Europe 2022&ndash;2025 ($/tonne)</div>
         <div class="legend">
           <span><span class="lsq" style="background:#1B3A5C;"></span>EU bulk average</span>
           <span><span class="lsq" style="background:#378ADD;"></span>De-icing grade</span>
@@ -419,15 +454,61 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <p style="font-size:11px;color:#8892aa;margin-top:10px;">Estimated CIF delivered prices, bulk industrial grade</p>
       </div>
     </div>
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-title">Industrial Salt: Buyer Segments &amp; Stratum Fit</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;">
+        <thead>
+          <tr style="background:var(--navy-light);text-align:left;">
+            <th style="padding:8px 10px;font-weight:600;border-bottom:2px solid var(--border2);">Segment</th>
+            <th style="padding:8px 10px;font-weight:600;border-bottom:2px solid var(--border2);">Purity Required</th>
+            <th style="padding:8px 10px;font-weight:600;border-bottom:2px solid var(--border2);">Key Requirements</th>
+            <th style="padding:8px 10px;font-weight:600;border-bottom:2px solid var(--border2);">Stratum Fit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 10px;">De-icing / Road Salt</td>
+            <td style="padding:8px 10px;">90-95% NaCl</td>
+            <td style="padding:8px 10px;">Bulk volume, low cost, coarse grain acceptable</td>
+            <td style="padding:8px 10px;color:#1D9E75;font-weight:600;">Ready now</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 10px;">Water Treatment</td>
+            <td style="padding:8px 10px;">99% NaCl</td>
+            <td style="padding:8px 10px;">Consistent granule size, low heavy metals (iron, manganese)</td>
+            <td style="padding:8px 10px;color:#1D9E75;font-weight:600;">Ready now</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 10px;">Agriculture / Animal Feed</td>
+            <td style="padding:8px 10px;">94-97% NaCl</td>
+            <td style="padding:8px 10px;">CoA required, heavy metals below EU feed limits</td>
+            <td style="padding:8px 10px;color:#1D9E75;font-weight:600;">Ready now</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 10px;">Textile &amp; Leather Tanning</td>
+            <td style="padding:8px 10px;">95-98% NaCl</td>
+            <td style="padding:8px 10px;">Natural mineral content tolerated, bulk or jumbo sack</td>
+            <td style="padding:8px 10px;color:#1D9E75;font-weight:600;">Ready now</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 10px;">Chemical Manufacturing</td>
+            <td style="padding:8px 10px;">99.5%+ NaCl</td>
+            <td style="padding:8px 10px;">Near-pharmaceutical purity, vacuum-evaporated salt</td>
+            <td style="padding:8px 10px;color:#A32D2D;font-weight:600;">Out of range</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="card">
       <div class="card-title">Stratum readiness assessment</div>
       <div class="tags-row">
-        <span class="tag tag-yes"><span class="tag-dot"></span>Ready to supply now</span>
+        <span class="tag tag-yes"><span class="tag-dot"></span>UK industrial: ready to supply now</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>No food certifications needed</span>
-        <span class="tag tag-yes"><span class="tag-dot"></span>Unrefined salt acceptable</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>Jumbo sack &amp; bulk formats</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>Strong price advantage</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>Low carbon footprint (1kg CO2/t)</span>
+        <span class="tag tag-yes"><span class="tag-dot"></span>Factory can refine to 99.4%+ on request</span>
+        <span class="tag tag-partial"><span class="tag-dot"></span>EU sales require REACH registration (in progress)</span>
         <span class="tag tag-partial"><span class="tag-dot"></span>Seasonal demand peaks in winter</span>
         <span class="tag tag-partial"><span class="tag-dot"></span>High volume, lower margin per tonne</span>
       </div>
@@ -444,11 +525,11 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <h3>Iodised Table Salt</h3>
         <p>Food grade &bull; Already iodised at source &bull; Food manufacturers, packers &amp; distributors</p>
       </div>
-      <div class="rh-badge">Ready Now</div>
+      <div class="rh-badge">Requires Certifications</div>
     </div>
     <div class="insight iod">
       <div class="insight-label">Stratum Positioning</div>
-      <p>All salt exported from Africa is already iodised at source (30&ndash;60 ppm KI), eliminating the need for a European co-packing step. Bureau Veritas and Fera Science reports confirm food-grade purity (98.78% NaCl, heavy metals below EU limits). This means Stratum can supply the iodised table salt market immediately at a price point 2&ndash;3x above industrial. Market growing at 4.5% CAGR through 2031.</p>
+      <p>All salt exported from Africa is already iodised at source (30-60 ppm KI), and Bureau Veritas and Fera Science reports confirm food-grade purity (98.78% NaCl, heavy metals below EU limits). The product is ready, but selling to food manufacturers requires certifications: factory must upgrade ISO 22000 to FSSC 22000, and Stratum needs SALSA (UK food, 850+ buyers) or BRCGS S&amp;D / IFS Broker (EU food). Wholesalers and repackers can be supplied NOW without these food certs. Price point 2-3x above industrial. Market growing at 4.5% CAGR through 2031.</p>
     </div>
     <div class="metrics-row">
       <div class="metric-card iod"><div class="mc-label">Iodised wholesale price</div><div class="mc-value">$150&ndash;300/t</div><div class="mc-sub stat-up">&#9650; Premium vs industrial</div></div>
@@ -458,7 +539,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
     </div>
     <div class="two-col">
       <div class="card">
-        <div class="card-title">Food salt price trend &mdash; Europe 2022&ndash;2025 ($/tonne)</div>
+        <div class="card-title">Food salt price trend: Europe 2022&ndash;2025 ($/tonne)</div>
         <div class="legend">
           <span><span class="lsq" style="background:#0E7C7B;"></span>Iodised food grade</span>
           <span><span class="lsq" style="background:#5DCAA5;"></span>Non-iodised food grade</span>
@@ -467,7 +548,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <div style="position:relative;width:100%;height:200px;"><canvas id="chart-iod"></canvas></div>
       </div>
       <div class="card">
-        <div class="card-title">Import price by country &mdash; food grade ($/tonne)</div>
+        <div class="card-title">Import price by country: food grade ($/tonne)</div>
         <div class="bar-row"><span class="bar-lbl">France</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#0E7C7B;"></div></div><span class="bar-val">$204/t</span></div>
         <div class="bar-row"><span class="bar-lbl">UK</span><div class="bar-track"><div class="bar-fill" style="width:91%;background:#0E7C7B;"></div></div><span class="bar-val">$185/t</span></div>
         <div class="bar-row"><span class="bar-lbl">Germany</span><div class="bar-track"><div class="bar-fill" style="width:67%;background:#5DCAA5;"></div></div><span class="bar-val">$136/t</span></div>
@@ -480,13 +561,15 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
     <div class="card">
       <div class="card-title">Stratum readiness assessment</div>
       <div class="tags-row">
-        <span class="tag tag-yes"><span class="tag-dot"></span>Salt already iodised at source (30&ndash;60 ppm KI)</span>
-        <span class="tag tag-yes"><span class="tag-dot"></span>98.78% NaCl purity &mdash; exceeds &ge;97% requirement</span>
+        <span class="tag tag-yes"><span class="tag-dot"></span>Salt already iodised at source (30-60 ppm KI)</span>
+        <span class="tag tag-yes"><span class="tag-dot"></span>98.78% NaCl purity, exceeds 97% requirement</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>Bureau Veritas + Fera Science lab verified</span>
-        <span class="tag tag-yes"><span class="tag-dot"></span>Strong margin vs industrial (2&ndash;3x)</span>
+        <span class="tag tag-yes"><span class="tag-dot"></span>Strong margin vs industrial (2-3x)</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>Growing market 4.5% CAGR</span>
-        <span class="tag tag-partial"><span class="tag-dot"></span>HACCP certification needed</span>
-        <span class="tag tag-partial"><span class="tag-dot"></span>EU food labelling compliance required</span>
+        <span class="tag tag-yes"><span class="tag-dot"></span>Wholesalers and repackers: ready now</span>
+        <span class="tag tag-partial"><span class="tag-dot"></span>Factory FSSC 22000 upgrade required (in progress)</span>
+        <span class="tag tag-partial"><span class="tag-dot"></span>UK food manufacturers: SALSA certification needed</span>
+        <span class="tag tag-partial"><span class="tag-dot"></span>EU food manufacturers: BRCGS S&amp;D or IFS Broker needed</span>
       </div>
     </div>
   </div>
@@ -501,11 +584,11 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <h3>Organic / Gourmet Salt</h3>
         <p>Premium food grade &bull; Natural mineral profile &bull; Health food, specialty, cosmetics &amp; wellness</p>
       </div>
-      <div class="rh-badge">Phase 3 &mdash; Highest Margin</div>
+      <div class="rh-badge">Phase 3: Highest Margin</div>
     </div>
     <div class="insight org">
       <div class="insight-label">Stratum Positioning</div>
-      <p>The Fera Science report confirms a natural mineral-rich profile: calcium (5,130mg/kg), magnesium (4,190mg/kg), potassium (890mg/kg). European gourmet salt market worth $2.68B in 2024, growing at 5.97% CAGR to 2033. African solar salt harvested naturally aligns perfectly with this segment. Highest margin opportunity &mdash; requires EU organic certification.</p>
+      <p>The Fera Science report confirms a natural mineral-rich profile: calcium (5,130mg/kg), magnesium (4,190mg/kg), potassium (890mg/kg). European gourmet salt market worth $2.68B in 2024, growing at 5.97% CAGR to 2033. African solar salt harvested naturally aligns perfectly with this segment. Highest margin opportunity, but requires the same food certifications as iodised (FSSC 22000 + SALSA / BRCGS S&amp;D / IFS Broker) plus EU organic certification on top. Longest runway of all three categories.</p>
     </div>
     <div class="metrics-row">
       <div class="metric-card org"><div class="mc-label">Organic/gourmet price</div><div class="mc-value">$400&ndash;900/t</div><div class="mc-sub stat-up">&#9650; 3&ndash;6x industrial price</div></div>
@@ -515,7 +598,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
     </div>
     <div class="two-col">
       <div class="card">
-        <div class="card-title">Organic/gourmet price trend &mdash; Europe 2022&ndash;2025 ($/tonne)</div>
+        <div class="card-title">Organic/gourmet price trend: Europe 2022&ndash;2025 ($/tonne)</div>
         <div class="legend">
           <span><span class="lsq" style="background:#3B6D11;"></span>Organic gourmet</span>
           <span><span class="lsq" style="background:#639922;"></span>Natural unrefined sea salt</span>
@@ -524,7 +607,7 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <div style="position:relative;width:100%;height:200px;"><canvas id="chart-org"></canvas></div>
       </div>
       <div class="card">
-        <div class="card-title">Price by country &mdash; organic/gourmet ($/tonne)</div>
+        <div class="card-title">Price by country: organic/gourmet ($/tonne)</div>
         <div class="bar-row"><span class="bar-lbl">France</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#3B6D11;"></div></div><span class="bar-val">$800&ndash;900/t</span></div>
         <div class="bar-row"><span class="bar-lbl">Germany</span><div class="bar-track"><div class="bar-fill" style="width:85%;background:#3B6D11;"></div></div><span class="bar-val">$680&ndash;780/t</span></div>
         <div class="bar-row"><span class="bar-lbl">Netherlands</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:#639922;"></div></div><span class="bar-val">$620&ndash;720/t</span></div>
@@ -549,9 +632,10 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <span class="tag tag-yes"><span class="tag-dot"></span>Highest margin opportunity</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>African provenance = strong story</span>
         <span class="tag tag-yes"><span class="tag-dot"></span>Fastest growing segment (5.97% CAGR)</span>
-        <span class="tag tag-partial"><span class="tag-dot"></span>EU organic certification required</span>
+        <span class="tag tag-partial"><span class="tag-dot"></span>FSSC 22000 + BRCGS S&amp;D / IFS Broker required first</span>
+        <span class="tag tag-partial"><span class="tag-dot"></span>EU organic certification required on top</span>
         <span class="tag tag-partial"><span class="tag-dot"></span>Smaller order volumes</span>
-        <span class="tag tag-no"><span class="tag-dot"></span>Longest runway &mdash; Phase 3</span>
+        <span class="tag tag-no"><span class="tag-dot"></span>Longest runway, Phase 3+</span>
       </div>
     </div>
   </div>
@@ -574,20 +658,65 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
     <tbody>
       <tr><td>Food grade?</td><td>No</td><td>Yes</td><td>Yes (premium)</td></tr>
       <tr><td>EU buyer price</td><td>$68&ndash;110/t</td><td>$136&ndash;204/t</td><td>$400&ndash;900/t</td></tr>
-      <tr><td>Certifications needed</td><td>None</td><td>HACCP, EU food labelling</td><td>EU Organic, food grade, COA</td></tr>
-      <tr><td>Ready to supply?</td><td>Yes &mdash; now</td><td>Yes &mdash; salt already iodised</td><td>Phase 3 &mdash; after org. cert</td></tr>
+      <tr><td>Certifications needed</td><td>None (UK), REACH (EU)</td><td>FSSC 22000 (factory) + SALSA (UK) or BRCGS S&amp;D / IFS Broker (EU)</td><td>All food certs + EU Organic</td></tr>
+      <tr><td>Ready to supply?</td><td>UK: yes now. EU: after REACH</td><td>Wholesalers/repackers: now. Food manufacturers: after certs</td><td>Longest runway, Phase 3+</td></tr>
       <tr><td>Market growth (CAGR)</td><td>+2.4%</td><td>+4.5%</td><td>+5.97%</td></tr>
       <tr><td>Best target country</td><td>Germany, Sweden</td><td>France, UK</td><td>France, Netherlands</td></tr>
-      <tr><td>Carbon footprint angle</td><td>Yes &mdash; 1kg CO2/t</td><td>Yes</td><td>Yes &mdash; key selling point</td></tr>
-      <tr><td>Stratum priority</td><td>Immediate</td><td>Immediate</td><td>Long term</td></tr>
+      <tr><td>Carbon footprint angle</td><td>Yes, 1kg CO2/t</td><td>Yes</td><td>Yes, key selling point</td></tr>
+      <tr><td>Stratum priority</td><td>Immediate (Phase 1)</td><td>After certs (Phases 2-3)</td><td>Long term (Phase 3+)</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo-wrap">
+<!-- CERTIFICATION ROADMAP -->
+<div class="section roadmap-section" style="padding-bottom:20px;">
+  <p class="section-title">Go-to-Market Roadmap</p>
+  <h2 class="section-heading" style="margin-bottom:20px;">Certification-Driven <span>Phase Plan</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+    <div style="background:var(--white);border-radius:12px;padding:20px;border:1px solid var(--border);border-top:4px solid #1D9E75;">
+      <div style="font-size:11px;font-weight:700;color:#1D9E75;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Phase 1: Now</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">UK Industrial + Wholesalers + Repackers</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
+        <strong>Certs needed:</strong> CoA per shipment only<br>
+        <strong>Buyers:</strong> De-icing, water treatment, leather, agriculture, salt traders, private label packers<br>
+        <strong>Status:</strong> <span style="color:#1D9E75;font-weight:600;">Active now</span>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:12px;padding:20px;border:1px solid var(--border);border-top:4px solid var(--navy);">
+      <div style="font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Phase 2: 3-6 Months</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">EU Industrial Buyers</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
+        <strong>Certs needed:</strong> REACH registration<br>
+        <strong>Buyers:</strong> EU de-icing, water treatment, chemical, textile<br>
+        <strong>Status:</strong> <span style="color:var(--navy);font-weight:600;">REACH in progress</span>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:12px;padding:20px;border:1px solid var(--border);border-top:4px solid var(--teal);">
+      <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Phase 3: 6-8 Months</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">UK Food Manufacturers</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
+        <strong>Certs needed:</strong> Factory FSSC 22000 + Stratum SALSA<br>
+        <strong>Buyers:</strong> 850+ small UK food manufacturers<br>
+        <strong>Status:</strong> <span style="color:var(--teal);font-weight:600;">FSSC 22000 upgrade planned</span>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:12px;padding:20px;border:1px solid var(--border);border-top:4px solid var(--green);">
+      <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Phase 4: 12+ Months</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">EU Food Manufacturers</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;">
+        <strong>Certs needed:</strong> BRCGS S&amp;D or IFS Broker<br>
+        <strong>Buyers:</strong> Major EU food manufacturers (DE, NL, FR, PL, ES)<br>
+        <strong>Status:</strong> <span style="color:var(--green);font-weight:600;">Planned after Phase 3</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER - pushed to bottom of final page -->
+<div style="page-break-before: always;"></div>
+<footer style="position: relative; min-height: 0;">
+  <div class="footer-inner" style="flex-direction: column; align-items: center; text-align: center; gap: 12px;">
+    <div class="footer-logo-wrap" style="justify-content: center;">
       <svg width="30" height="30" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
         <polygon points="16,42 6,24 16,6 26,24" fill="white"/>
         <polygon points="24,42 14,24 24,6 34,24" fill="#5DCAA5" opacity="0.8"/>
@@ -598,10 +727,13 @@ footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 32px 5%
         <div class="footer-logo-sub">DB GROUP INTERNATIONAL LTD</div>
       </div>
     </div>
-    <div class="footer-info">
+    <div class="footer-info" style="text-align: center;">
       <div><a href="mailto:hello@stratumcommodities.com">hello@stratumcommodities.com</a> &bull; <a href="https://stratumcommodities.com">stratumcommodities.com</a></div>
       <div>Registered in England &amp; Wales &bull; +44 7958 131334</div>
-      <div style="margin-top:4px;font-size:10px;opacity:0.5;">Data sources: IndexBox, Fera Science Ltd (R25-66498), MaxiSalt, Procurement Resource &mdash; Q1 2026</div>
+      <div style="margin-top:8px;font-size:10px;opacity:0.5;">Data sources: IndexBox, Fera Science Ltd (R25-66498), MaxiSalt, Procurement Resource. Q1 2026</div>
+    </div>
+    <div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.15);width:100%;font-size:9px;color:rgba(255,255,255,0.4);text-align:center;letter-spacing:0.5px;">
+      &copy; 2026 Stratum Commodities Ltd (DB Group International Ltd). All rights reserved. This document is confidential and intended solely for the recipient.
     </div>
   </div>
 </footer>
