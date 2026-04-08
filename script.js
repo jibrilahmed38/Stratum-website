@@ -22,6 +22,26 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
 });
 
+// Tab switching for commodity categories
+function switchTab(tabName, btn) {
+  // Hide all tab content
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  // Deactivate all tabs
+  document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+  // Show selected tab content
+  document.getElementById('tab-' + tabName).classList.add('active');
+  // Activate clicked tab
+  btn.classList.add('active');
+  // Re-observe new cards for scroll animation
+  const newTab = document.getElementById('tab-' + tabName);
+  newTab.querySelectorAll('.product-card, .gem-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+}
+
 // Smooth reveal on scroll
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -31,7 +51,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.product-card, .why-card, .stat-card, .contact-item').forEach(el => {
+document.querySelectorAll('.product-card, .why-card, .stat-card, .contact-item, .gem-card').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';

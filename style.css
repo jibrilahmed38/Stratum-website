@@ -161,6 +161,33 @@ section { padding: 100px 0; }
 .stat-number { font-size: 36px; font-weight: 800; color: var(--teal); }
 .stat-label { font-size: 13px; color: var(--grey-600); font-weight: 500; margin-top: 4px; }
 
+/* ---- CATEGORY TABS ---- */
+.category-tabs {
+  display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap;
+}
+.category-tab {
+  padding: 10px 24px; border-radius: 24px;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  border: 2px solid var(--grey-200); background: var(--white);
+  color: var(--grey-600); transition: var(--transition);
+  font-family: inherit;
+}
+.category-tab:hover {
+  border-color: var(--teal); color: var(--teal);
+}
+.category-tab.active {
+  background: var(--teal); color: var(--white);
+  border-color: var(--teal);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.tab-intro {
+  font-size: 16px; color: var(--grey-600); max-width: 720px;
+  line-height: 1.7; margin-bottom: 32px;
+}
+
 /* ---- PRODUCTS ---- */
 .products-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -257,6 +284,49 @@ section { padding: 100px 0; }
 @media (max-width: 900px) {
   .salt-types-grid { grid-template-columns: 1fr; }
   .purity-stats { flex-direction: column; gap: 16px; }
+}
+
+/* ---- GEMSTONE GRID ---- */
+.gem-section-title {
+  font-size: 16px; font-weight: 700; color: var(--navy);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 16px; margin-top: 8px;
+}
+.gem-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 32px;
+}
+.gem-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 24px; border: 1px solid var(--grey-200);
+  transition: var(--transition);
+}
+.gem-card:hover { box-shadow: var(--shadow); border-color: var(--teal); transform: translateY(-2px); }
+.gem-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+}
+.gem-icon svg { width: 22px; height: 22px; }
+.gem-card h4 { font-size: 15px; color: var(--navy); margin-bottom: 8px; }
+.gem-card p { font-size: 13px; color: var(--grey-600); line-height: 1.6; }
+
+.gem-card.compact {
+  padding: 16px 20px; text-align: center;
+  background: var(--grey-100);
+}
+.gem-card.compact h4 { margin-bottom: 0; font-size: 14px; }
+
+.gem-grid.secondary {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 900px) {
+  .gem-grid { grid-template-columns: repeat(2, 1fr); }
+  .gem-grid.secondary { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .gem-grid.secondary { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ---- WHY US ---- */
